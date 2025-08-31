@@ -1,0 +1,170 @@
+Activity
+
+web
+
+Redeployment successful
+
+32 seconds ago
+
+web
+
+Redeployment successful
+
+2 minutes ago
+
+web
+
+Deployment successful
+
+2 minutes ago
+
+web
+
+Redeployment successful
+
+5 minutes ago
+
+web
+
+Deployment restarted
+
+10 minutes ago
+
+web
+
+Redeployment successful
+
+10 minutes ago
+
+web
+
+Deployment restarted
+
+10 minutes ago
+
+web
+
+Deployment successful
+
+21 minutes ago
+
+web
+
+Redeployment failed
+
+1 hour ago
+
+web
+
+Redeployment failed
+
+1 hour ago
+
+web
+
+Deployment successful
+
+1 hour ago
+
+web
+
+Redeployment failed
+
+1 hour ago
+
+web
+
+Deployment successful
+
+1 hour ago
+
+web
+
+Deployment successful
+
+1 hour ago
+
+web
+
+Deployment successful
+
+1 hour ago
+
+
+Fetch More
+
+web
+Deployments
+Variables
+Metrics
+Settings
+web-production-d2867.up.railway.app
+3.11.13python@3.11.13
+europe-west4-drams3a
+1 Replica
+
+
+
+
+History
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+web
+/
+f42a814
+Sep 1, 2025, 1:45 AM
+Removed
+
+web-production-d2867.up.railway.app↗
+
+Details
+Build Logs
+Deploy Logs
+HTTP Logs
+Filter and search logs
+
+You reached the start of the range
+Sep 1, 2025, 1:45 AM
+Starting Container
+2025-08-31 22:45:38,205 - __main__ - INFO - Command handlers added: start, help, status, logs, config, add_admin, remove_admin, list_admins, add_channel
+2025-08-31 22:45:38,206 - __main__ - INFO - Telegram bot is starting...
+2025-08-31 22:45:38,206 - __main__ - ERROR - Bot polling error: There is no current event loop in thread 'Thread-1 (setup_telegram_bot)'.
+2025-08-31 22:45:38,206 - __main__ - ERROR - Unexpected bot error: There is no current event loop in thread 'Thread-1 (setup_telegram_bot)'.
+Exception in thread Thread-1 (setup_telegram_bot):
+Traceback (most recent call last):
+  File "/mise/installs/python/3.11.13/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/mise/installs/python/3.11.13/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/app/server.py", line 169, in setup_telegram_bot
+    bot_application.run_polling(
+  File "/app/.venv/lib/python3.11/site-packages/telegram/ext/_application.py", line 881, in run_polling
+    return self.__run(
+           ^^^^^^^^^^^
+  File "/app/.venv/lib/python3.11/site-packages/telegram/ext/_application.py", line 1061, in __run
+    loop = asyncio.get_event_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mise/installs/python/3.11.13/lib/python3.11/asyncio/events.py", line 681, in get_event_loop
+    raise RuntimeError('There is no current event loop in thread %r.'
+RuntimeError: There is no current event loop in thread 'Thread-1 (setup_telegram_bot)'.
+/mise/installs/python/3.11.13/lib/python3.11/threading.py:1047: RuntimeWarning: coroutine 'Updater.start_polling' was never awaited
+  self._invoke_excepthook(self)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+Starting HTTP server on 0.0.0.0:8080
