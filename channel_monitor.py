@@ -5,7 +5,8 @@ Monitors channel activities and member changes
 
 import logging
 from datetime import datetime
-from telegram import ChatMember
+from telegram import ChatMember, Update
+from telegram.ext import ContextTypes
 
 class ChannelMonitor:
     def __init__(self):
@@ -80,3 +81,39 @@ class ChannelMonitor:
         
         # Consider it suspicious if more than 5 bans in 1 hour
         return recent_bans > 5
+    
+    async def handle_chat_member_update(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle chat member updates (join/leave/status changes)"""
+        try:
+            if not update.chat_member:
+                return
+                
+            chat_member = update.chat_member
+            user = chat_member.from_user
+            chat = update.effective_chat
+            
+            if not user or not chat:
+                return
+            
+            old_status = chat_member.old_chat_member.status if chat_member.old_chat_member else "unknown"
+            new_status = chat_member.new_chat_member.status if chat_member.new_chat_member else "unknown"
+            
+            # Log the member change
+            self.log_member_change(
+                chat_id=chat.id,
+                user_id=user.id, 
+                old_status=old_status,
+                new_status=new_status,
+                admin_id=chat_member.from_user.id if chat_member.from_user else None
+            )
+            
+            # Monitor admin changes
+            if new_status in ["administrator", "creator"]:
+                self.logger.info(f"✅ {user.full_name} تم ترقيته لأدمن في {chat.title}")
+            elif old_status in ["administrator", "creator"] and new_status in ["member", "left", "kicked"]:
+                self.logger.info(f"❌ {user.full_name} تم إزالته من الأدمن في {chat.title}")
+            elif self.is_member_ban(old_status, new_status):
+                self.logger.warning(f"🚫 {user.full_name} تم حظره في {chat.title}")
+                
+        except Exception as e:
+            self.logger.error(f"Error handling chat member update: {e}")
