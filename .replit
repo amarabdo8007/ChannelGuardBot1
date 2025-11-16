@@ -1,10 +1,7 @@
-modules = ["python-3.11", "postgresql-16"]
+modules = ["python-3.11"]
+
 [agent]
 expertMode = true
-
-[nix]
-channel = "stable-25_05"
-packages = ["haskellPackages.concurrent-dns-cache"]
 
 [workflows]
 runButton = "Project"
@@ -25,13 +22,13 @@ author = "agent"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "python3 run_bot.py"
+waitForPort = 5000
 
 [workflows.workflow.metadata]
-outputType = "console"
-
-[deployment]
-deploymentTarget = "cloudrun"
-run = ["sh", "-c", "python main.py"]
+outputType = "webview"
 
 [[ports]]
 localPort = 5000
+externalPort = 80
+
+[nix]
